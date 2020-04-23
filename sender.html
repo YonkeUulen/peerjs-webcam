@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WebRTC demo</title>
+    <style>
+        video {
+            width: 600px;
+            height: 400px;
+            border: 1px #000 solid;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay="true" id="local"></video>
+    <video autoplay="true" id="remote"></video>
+    <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+    <script>
+        async function init() {
+            var peer = new Peer('sender', { host: 'localhost', port: 9001, path: '/', key: 'peerjs', debug:3 });
+
+            var localStream = await navigator.mediaDevices.getUserMedia({
+                video: true
+            });
+            document.querySelector('video#local').srcObject = localStream
+
+            var call = peer.call('receiver', localStream);
+            call.on('stream', function (stream) {
+                document.querySelector('video#remote').srcObject = stream;
+            });
+        }
+        init();
+    </script>
+</body>
+
+</html>

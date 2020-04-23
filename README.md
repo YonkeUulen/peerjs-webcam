@@ -1,2 +1,5 @@
 # peerjs-webcam
-WebRTC cam to cam simple example using PeerJS
+WebRTC simple cam to cam example using PeerJS
+
+Start the peer server using 
+>npm run start
